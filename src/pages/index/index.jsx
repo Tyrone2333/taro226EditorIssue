@@ -4,38 +4,46 @@ import './index.scss'
 
 export default class Index extends Component {
 
-  componentWillMount () { }
+    componentWillMount() {
+    }
 
-  componentDidMount () { }
+    componentDidMount() {
+    }
 
-  componentWillUnmount () { }
+    componentWillUnmount() {
+    }
 
-  componentDidShow () { }
+    componentDidShow() {
+    }
 
-  componentDidHide () { }
+    componentDidHide() {
+    }
 
-  config = {
-    navigationBarTitleText: '首页'
-  }
+    config = {
+        navigationBarTitleText: '首页',
+    }
 
-  render () {
-    return (
-      <View className='index'>
-        <Text>Hello world!</Text>
+    render() {
+        return (
+            <View className='index'>
+                <Text>Hello world!</Text>
 
-        <Editor id='editor'
-                className='editor ql-container'
+                <Editor
+                    className='editor ql-container'
+                    placeholder='写文章...'
+                    // onReady={this.editorReady}
+                    // onStatuschange={this.onStatusChange.bind(this)}
+                    showImgToolbar
+                    showImgResize
+                    showImgSize
+                />
+                <smt-icon name='arrow-left'></smt-icon>
+                <smt-icon name='add' size='30px'/>
+                <smt-icon name='add' size='36.232rpx'/>
+                <smt-icon name='add' size='6vw'/>
 
-                placeholder='写文章...'
-                // onReady={this.editorReady}
-                // onStatuschange={this.onStatusChange.bind(this)}
-                showImgToolbar
-                showImgResize
-                showImgSize
-        />
-
-        <View className=''>没有??</View>
-      </View>
-    )
-  }
+                <View className=''>没有??</View>
+            </View>
+        )
+    }
 }
