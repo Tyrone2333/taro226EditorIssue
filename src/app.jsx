@@ -8,7 +8,18 @@ import './app.scss'
 // if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
 //   require('nerv-devtools')
 // }
-
+let dynamicLib = {};
+let usingComponents = {};
+if (process.env.TARO_ENV === 'swan') {
+    dynamicLib = {
+        "editorLib": {
+            "provider": "swan-editor",
+        },
+    };
+    usingComponents = {
+        "editor": "dynamicLib://editorLib/editor",
+    };
+}
 class App extends Component {
 
     componentDidMount() {
@@ -33,20 +44,17 @@ class App extends Component {
             navigationBarTitleText: 'WeChat',
             navigationBarTextStyle: 'black',
         },
-        "dynamicLib": {
-            // 'smartUI' 是个可自己定的别名。本小程序中统一用这个别名引用此动态库。
-            "smartUI": {
-                // 这个 provider 就是发布的动态库唯一名字，须写 "smart-ui"。
-                "provider": "smart-ui",
-            },
-            "editorLib": {
-                "provider": "swan-editor"
-            }
-        },
-        "usingComponents": {
-            "smt-icon": "dynamicLib://smartUI/smt-icon",
-            "editor": "dynamicLib://editorLib/editor",
-        },
+        "dynamicLib": dynamicLib,
+        "usingComponents": usingComponents,
+
+        // "dynamicLib": {
+        //     "editorLib": {
+        //         "provider": "swan-editor"
+        //     }
+        // },
+        // "usingComponents": {
+        //     "editor": "dynamicLib://editorLib/editor",
+        // },
     }
 
     // 在 App 类中的 render() 函数没有实际作用

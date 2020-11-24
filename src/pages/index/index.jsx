@@ -22,6 +22,34 @@ export default class Index extends Component {
     config = {
         navigationBarTitleText: '首页',
     }
+    editorReady = () => {
+        console.log('ready')
+        this.editorCtx = requireDynamicLib('editorLib').createEditorContext('editorId');
+        return
+        Taro.createSelectorQuery().select('#editor').context((res) => {
+            this.editorCtx = res.context;
+            let {articleId, mode} = this.$router.params;
+
+            // 编辑文章,拉取内容
+            if (mode === 'edit') {
+                getReminisceInfo(articleId).then((res2) => {
+                    this.setState({
+                        title: res2.title || '',
+                    });
+                    this.editorCtx.setContents({
+                        'html': res2.richTextContent || '',
+                    });
+                });
+            }
+
+        }).exec();
+    }
+
+    onStatusChange(e) {
+        this.setState({
+            formats: e.detail,
+        });
+    }
 
     render() {
         return (
@@ -31,16 +59,12 @@ export default class Index extends Component {
                 <Editor
                     className='editor ql-container'
                     placeholder='写文章...'
-                    // onReady={this.editorReady}
-                    // onStatuschange={this.onStatusChange.bind(this)}
+                    onReady={this.editorReady.bind(this)}
+                    onStatuschange={this.onStatusChange.bind(this)}
                     showImgToolbar
                     showImgResize
                     showImgSize
                 />
-                <smt-icon name='arrow-left'></smt-icon>
-                <smt-icon name='add' size='30px'/>
-                <smt-icon name='add' size='36.232rpx'/>
-                <smt-icon name='add' size='6vw'/>
 
                 <View className=''>没有??</View>
             </View>
